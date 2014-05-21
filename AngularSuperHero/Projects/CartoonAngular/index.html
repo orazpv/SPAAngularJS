@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>Cartoon Using Angular & AJAX</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Projects/CartoonAngular/CartoonStyle.css" rel="stylesheet" />
+</head>
+<body>
+    <div  style="margin:10px">
+        <!--*********************  Create Controller  *****************************-->
+        <div ng-controller="createCtrl" class="col-md-2" style="height:100px;width:450px;">
+            <div class="form-control" style="height:auto;width:auto">
+                <input type="text" ng-model="name" placeholder="Cartoon Name" class="form-control" /><br />
+                <input type="text" ng-model="url" placeholder="Picture Url" class="form-control" /><br />
+                <div class="btn btn-success" ng-click="addCartoon(name,url)">Add</div>
+            </div>
+        </div>
+
+        <!--*********************  Display and Delete Controller  *****************************-->
+        <div ng-controller="displayCtrl" style="height: 100px; width: 450px;" class="col-md-11">
+            <table class="table table-responsive form-control" style="height:auto;width:auto">
+                <tbody ng-repeat="c in cartoons | orderBy: 'name'">
+                    <tr>
+                        <td rowspan="3" style="height:200px;width:200px">
+                        <img class="img-thumbnail" src="{{c.url}}" style="height:200px;width:200px" /></td>
+                        <td colspan="2" style="height:30px;">{{c.name}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{c.date | date:'MM/dd/yyyy @ h:mma'}}</td>
+                    </tr>
+                    <tr>
+                        <td><div class="btn btn-success" ng-click="updateCartoon(c)">Update</div></td>
+                        <td><div class="btn btn-success" ng-click="delCartoon(c)">Delete</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Modal -->
+            <div class="modal fade" id="editCartoon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">{{modal.name}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" ng-model="modal.name" placeholder="Cartoon Name" class="form-control" /><br />
+                            <input type="text" ng-model="modal.url" placeholder="Picture Url" class="form-control" /><br />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" ng-click="saveCartoon()">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--=========================== Scripts ================================-->
+
+        <script src="Scripts/angular.js"></script>
+        <script src="Scripts/jquery-1.9.1.js"></script>
+        <script src="Scripts/bootstrap.js"></script>
+        <script src="Projects/CartoonAngular/CartonJS.js"></script>
+</body>
+</html>

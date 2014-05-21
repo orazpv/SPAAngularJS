@@ -1,0 +1,100 @@
+﻿<div class="container">
+    <div class="head">
+        <div class="col-md-12 column">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="#/home">Home</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#/home" class="dropdown-toggle" data-toggle="dropdown">Profile<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#/home">View</a>
+                                </li>
+                                <li>
+                                    <a href="#/home" ng-click="EditProfile()">Edit</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="navbar-form navbar-left">
+                        <input type="text" class="form-control" placeholder="Search Users" />
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div class="navbar-form">
+                                <span style="color:#0026ff;font-weight:bolder">{{name}}</span>
+                                <img class="img-thumbnail pixThumnail" src="{{pictureUrl}}" />
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#/login">Log out</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- ******************** Add New Friend ***********************-->
+    <div class="form-control margin addTweetDiv">
+        <strong>Add Tweet</strong><hr />
+        <textarea class="form-control" placeholder="Share what's new" ng-model="msg"></textarea><br />
+        <div class="btn btn-info floatRight" ng-click="addTweet(msg)">Tweet</div>
+    </div>
+    <!-- ******************** List of all the user's Friends ***********************-->
+    <div class="form-control margin loginDiv friendsDiv">
+        <strong>Friends</strong><hr />
+        <div class="form-inline">
+            <input type="text" class="form-control" ng-model="userid" style="width:350px" placeholder="User Name" />
+            <div class="btn btn-info" ng-click="addFriend(userid)">Add</div><hr />
+        </div>
+        <div ng-repeat="friend in friends">
+            <div class="form-control tweetsDivInner">
+                <img class="img-thumbnail pixThumnail" src="{{friend.pictureUrl}}" /> 
+                <a href="#/{{friend.userName}}" title="View {{friend.name}}'s Profile">{{friend.name}}</a>
+                <div class="btn btn-sm floatRight" title="Edit {{friend.name}}"><span class="glyphicon glyphicon-edit"></span></div>
+                <div class="btn btn-sm floatRight" title="Delete {{friend.name}}"><span class="glyphicon glyphicon-remove"></span></div>
+            </div><br />
+        </div><hr />
+    </div>
+    <!-- ******************** List of all the user's Tweets ***********************-->
+    <div class="form-control margin loginDiv tweetDiv">
+        <strong>Tweets</strong><hr /><br />
+        <div ng-repeat="tweet in tweets | orderBy:'-time'">
+            <div class="form-control tweetsDivInner">
+                <img class="img-thumbnail pixThumnail" src="{{tweet.pictureUrl}}" />
+                <strong>{{tweet.name}}</strong><br /><span style="margin-left:40px;width:300px;height:auto">{{tweet.msg}}</span><br />
+                <div style="text-align:right"><em>{{tweet.time | date: 'MM/dd/yyyy @ h:mma'}}</em></div>
+            </div><br />
+        </div><hr /><br />
+    </div>
+</div>
+<!--********************* Modal Window for Updating User's Profile ***************************-->
+<div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div class="navbar-form">
+                    <img class="img-thumbnail pixThumnail" src="{{Profile.pictureUrl}}" />
+                </div>
+                <h4 class="modal-title" id="myModalLabel">{{Profile.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" ng-model="Profile.name" placeholder="User Name" class="form-control" /><br />
+                <input type="text" ng-model="Profile.pictureUrl" placeholder="Profile Picture Url" class="form-control" />
+                <hr />
+                <h4>Change Password</h4>
+                <input type="password" ng-model="Profile.pwd" placeholder="Password" class="form-control" /><br />
+                <input type="password" ng-model="Profile.Retypepwd" placeholder="Re-Type Password" class="form-control" /><br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="saveHero()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

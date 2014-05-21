@@ -1,0 +1,15 @@
+﻿
+<table class="table table-hover" >
+    <thead>
+        <tr>
+            <td><h1>Blogs</h1></td>
+        </tr>
+    </thead>
+    <tbody >
+        <tr ng-repeat="blog in blogs">
+            <td>{{blog.blogger}}</td>
+            <td><a href="#/view/{{$index}}">{{blog.msg}}</a></td>
+            <td>{{blog.time | date:'@ h:mma'}}</td>
+        </tr>
+    </tbody>
+</table> 
